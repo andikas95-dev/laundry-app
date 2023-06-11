@@ -465,7 +465,7 @@ public class customer extends javax.swing.JFrame {
        boolean editStatus = tableCustomer.getRowSelectionAllowed();
        
        if(editStatus){
-            int bar = tableCustomer.getSelectedRow();
+        int bar = tableCustomer.getSelectedRow();
         String a = tabmode.getValueAt(bar, 0).toString();
         String b = tabmode.getValueAt(bar, 1).toString();
         String c = tabmode.getValueAt(bar, 2).toString();
