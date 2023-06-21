@@ -6,7 +6,6 @@
 package pages.formTransaksiItems;
 
 import java.sql.*;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
 import javax.swing.JOptionPane;
@@ -18,7 +17,7 @@ import services.koneksi;
  *
  * @author Barokah
  */
-public class formBarangMasuk extends javax.swing.JFrame {
+public class formBarangKeluar extends javax.swing.JFrame {
     
     private DefaultTableModel tabmode;
     private Connection conn = new koneksi().connect();
@@ -26,7 +25,7 @@ public class formBarangMasuk extends javax.swing.JFrame {
     /**
      * Creates new form formBarangMasuk
      */
-    public formBarangMasuk() {
+    public formBarangKeluar() {
         initComponents();
         dataTable();
         
@@ -46,11 +45,13 @@ public class formBarangMasuk extends javax.swing.JFrame {
     public String kodeBarang, namaBarang, stokAwal, satuan;
         
     public void itemTerpilihBrg(){
-        popupBarang Pbrg = new popupBarang();
+        popupBarangKeluar Pbrg = new popupBarangKeluar();
         Pbrg.selectedBarang = this;
         kode_itemF.setText(kodeBarang);
         nama_itemF.setText(namaBarang);
         labelSatuan.setText(satuan);
+        labelSatuanStokAwal.setText(satuan);
+        stok_awalF.setValue(Integer.parseInt(stokAwal));
         
         harga_itemF.setEnabled(true);
         jumlah_itemF.setEnabled(true);
@@ -124,6 +125,9 @@ public class formBarangMasuk extends javax.swing.JFrame {
         jumlah_itemF = new javax.swing.JSpinner();
         labelSatuan = new javax.swing.JLabel();
         buttonTambahBarang = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        stok_awalF = new javax.swing.JSpinner();
+        labelSatuanStokAwal = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableBarangMasuk = new javax.swing.JTable();
@@ -137,7 +141,7 @@ public class formBarangMasuk extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Barang Masuk");
+        jLabel1.setText("Barang Keluar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -221,7 +225,7 @@ public class formBarangMasuk extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(buttonSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -283,6 +287,16 @@ public class formBarangMasuk extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel11.setText("Stok Awal");
+
+        stok_awalF.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        stok_awalF.setEnabled(false);
+
+        labelSatuanStokAwal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelSatuanStokAwal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelSatuanStokAwal.setText("pcs");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -295,12 +309,13 @@ public class formBarangMasuk extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel4)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nama_itemF)
@@ -309,10 +324,14 @@ public class formBarangMasuk extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1))
                             .addComponent(harga_itemF)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jumlah_itemF, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(stok_awalF)
+                                    .addComponent(jumlah_itemF, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addComponent(labelSatuan)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelSatuan)
+                                    .addComponent(labelSatuanStokAwal))
                                 .addGap(19, 19, 19)))))
                 .addContainerGap())
         );
@@ -338,9 +357,14 @@ public class formBarangMasuk extends javax.swing.JFrame {
                     .addComponent(jumlah_itemF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelSatuan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(stok_awalF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSatuanStokAwal))
+                .addGap(9, 9, 9)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonTambahBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -477,12 +501,11 @@ public class formBarangMasuk extends javax.swing.JFrame {
         int total =  Integer.parseInt(totalHargaF.getText());
         
         String transaksiItemSql = "INSERT INTO transaksi_items values (?,?,?,?,?)";
-        System.out.println(newDataDate);
             
         try {
             PreparedStatement transaksiItem = conn.prepareStatement(transaksiItemSql);
             transaksiItem.setString(1, idTransaksi);
-            transaksiItem.setString(2, "masuk");
+            transaksiItem.setString(2, "keluar");
             transaksiItem.setInt(3, total);
             transaksiItem.setString(4, keteranganField);
             transaksiItem.setDate(5, newDataDate);
@@ -513,13 +536,12 @@ public class formBarangMasuk extends javax.swing.JFrame {
                 String stokBarangUpdated = "update items_master set `stock`=? where kode_item='" + kItem + "'";
                 PreparedStatement stokBarangSql = conn.prepareStatement(stokBarangUpdated);
                 
-                int updateStok = newstokAwal+jumlahItem;
+                int updateStok = newstokAwal-jumlahItem;
                 
                 stokBarangSql.setInt(1, updateStok);
                 
                 stokBarangSql.executeUpdate();
             }
-//            new transaksiItems().dataTable();
             
             JOptionPane.showMessageDialog(null, "data berhasil disimpan");
             reset();
@@ -531,7 +553,7 @@ public class formBarangMasuk extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        popupBarang Pbrg = new popupBarang();
+        popupBarangKeluar Pbrg = new popupBarangKeluar();
         Pbrg.selectedBarang = this;
         Pbrg.setVisible(true);
         Pbrg.setResizable(false);
@@ -542,6 +564,14 @@ public class formBarangMasuk extends javax.swing.JFrame {
 //        Object[] Baris = {"Kode Barang", "Nama Barang", "Harga Barang", "Stok Awal", "Jumlah Barang", "Satuan", "Keterangan", "Total"};
         int count = tableBarangMasuk.getRowCount();
         String kode = kode_itemF.getText();
+        int jmlBarang = (int) jumlah_itemF.getValue();
+        int stokAwalVal = (int) stok_awalF.getValue();
+        
+        if(jmlBarang>stokAwalVal){
+            JOptionPane.showMessageDialog(null, "Barang yang keluar melebihi Stok yang ada");
+            return;
+        }
+        
         for(int i=0; i < count ; i++){
             String tblKode = tableBarangMasuk.getValueAt(i, 0).toString();
             System.out.println(tblKode == kode);
@@ -555,7 +585,6 @@ public class formBarangMasuk extends javax.swing.JFrame {
         try{
             String nama = nama_itemF.getText();
             int hargab = (int) harga_itemF.getValue();
-            int jmlBarang = (int) jumlah_itemF.getValue();
             String satuanVal = labelSatuan.getText();
             String keteranganVal = keteranganF.getText();
             int Total = hargab * jmlBarang;
@@ -591,6 +620,7 @@ public class formBarangMasuk extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         new transaksiItems().setVisible(true);
+//        new transaksiItems().dataTable();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -610,20 +640,21 @@ public class formBarangMasuk extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formBarangMasuk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formBarangKeluar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formBarangMasuk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formBarangKeluar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formBarangMasuk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formBarangKeluar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formBarangMasuk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formBarangKeluar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new formBarangMasuk().setVisible(true);
+                new formBarangKeluar().setVisible(true);
             }
         });
     }
@@ -637,6 +668,7 @@ public class formBarangMasuk extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -658,7 +690,9 @@ public class formBarangMasuk extends javax.swing.JFrame {
     private javax.swing.JTextArea keteranganF;
     private javax.swing.JTextField kode_itemF;
     private javax.swing.JLabel labelSatuan;
+    private javax.swing.JLabel labelSatuanStokAwal;
     private javax.swing.JTextField nama_itemF;
+    private javax.swing.JSpinner stok_awalF;
     private javax.swing.JTable tableBarangMasuk;
     private com.toedter.calendar.JDateChooser tanggalF;
     private javax.swing.JTextField totalHargaF;

@@ -157,7 +157,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane1" pref="234" max="32767" attributes="0"/>
                                   <Component id="id_transaksiF" max="32767" attributes="0"/>
-                                  <Component id="tanggalF" max="32767" attributes="0"/>
+                                  <Component id="tanggalF" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -248,7 +248,7 @@
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="tanggalF">
               <Properties>
-                <Property name="dateFormatString" type="java.lang.String" value="dd MMM YYYY"/>
+                <Property name="dateFormatString" type="java.lang.String" value="dd MMM yyyy"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>

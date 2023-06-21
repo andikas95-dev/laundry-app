@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import pages.formTransaksiItems.formBarangKeluar;
 import pages.formTransaksiItems.formBarangMasuk;
 import services.koneksi;
 
@@ -40,7 +41,7 @@ public class transaksiItems extends javax.swing.JFrame {
         
         String cariitem = cariF.getText();
         try {
-            String sql = "SELECT * FROM transaksi_items where id_transaksi like '%" + cariitem + "%' order by createdAt asc";
+            String sql = "SELECT * FROM transaksi_items where id_transaksi like '%" + cariitem + "%' order by createdAt desc";
 //            String sql = "SELECT * FROM transaksi_items where kode_customer like '%" + cariitem + "%' where createdAt between "+ startDate +" and "+ endDate +" order by nama_customer asc";
             Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
@@ -293,11 +294,14 @@ public class transaksiItems extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        new formBarangKeluar().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void popupbarangmasukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_popupbarangmasukMouseClicked
         // TODO add your handling code here:
         new formBarangMasuk().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_popupbarangmasukMouseClicked
 
     /**
